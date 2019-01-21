@@ -1,0 +1,178 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class Person {
+public:
+	int id;
+	string firstname, lastname, branch;
+public:
+	Person() {
+
+	}
+	Person(int id,string fname,string lname,string branch) {
+		this->id = id;
+		this->firstname = fname;
+		this->lastname = lname;
+		this->branch = branch;
+	}
+	void acceptPerson() {
+		cout << "Enter id :"<<endl;
+		cin >> id;
+		cout << "Enter firstname :"<<endl;
+		cin >> firstname;
+		cout << "Enter lastname :"<<endl;
+		cin >> lastname;
+		cout << "Enter Branch :"<<endl;
+		cin >> branch;
+	}
+	void printPerson() {
+		cout << "ID : " << id << "\t" << "Firstname : " << firstname << "\t" << "Lastname : " << lastname <<"\t"<< "Branch : " << branch<<endl;
+	}
+};
+class UgStudent :public Person {
+public:
+	string ugbranch;
+public:
+	UgStudent() {
+
+	}
+public:
+	void acceptUgbranch(){
+		cout << "Enter UG Branch : " << endl;
+		cin >> ugbranch;
+	}
+	void printUgbranch() {
+		cout << "UG Branch is : " << ugbranch << endl;
+	}
+};
+class Sports {
+	string sportname;
+public:
+	void acceptSport() {
+		cout << "Enter sportname: " << endl;
+		cin >> sportname;
+	}
+	void printSport() {
+		cout << "Sport  is : " << sportname << endl;
+	}
+};
+class PgStudent :public UgStudent,Sports {
+public:
+	PgStudent() {
+
+	}
+};
+int main() {
+	PgStudent pg[10];
+	
+	pg[0].id = 1001;
+	pg[0].firstname = "Bobby";
+	pg[0].lastname = "Cherukuri";
+	pg[0].branch = "CSE";
+
+	pg[1].id = 1002;
+	pg[1].firstname = "Gayathri";
+	pg[1].lastname = "Reddy";
+	pg[1].branch = "CSE";
+
+	pg[2].id = 1003;
+	pg[2].firstname = "Abhinand";
+	pg[2].lastname = "Mandava";
+	pg[2].branch = "CIVIL";
+	int num, k = 3;
+	int pid, c = 0;
+	string f1, f2, f3;
+	
+	do {
+		cout << "Enter your Choice : \n" << endl << "1. Enter details" << endl << "2. Display details" << endl << "3. Search details" << endl << "4. Update details" << endl << "5. Delete" << endl;
+		cin >> num;
+		switch (num)
+		{
+		case 1:cout << "Enter Details" << endl;
+
+			pg[k].acceptPerson();
+			k++;
+			break;
+		case 2:cout << "Display details" << endl;
+			for (int j = 0; j < k; j++) {
+				pg[j].printPerson();
+			}
+			break;
+		case 3:cout << "search details" << endl;
+			cout << "enter id to search" << endl;
+			cin >> pid;
+			c = 0;
+			for (int i = 0; i < k; i++) {
+				if (pg[i].id == pid) {
+				pg[i].printPerson();
+					c = 1;
+				}
+			}
+			if (c == 0) {
+				cout << "id doesnot exists" << endl;
+			}
+			break;
+		case 4:cout << "Update Details" << endl;
+			cout << "Enter ID you want to update";
+			cin >> pid;
+			for (int i = 0; i < k; i++) {
+				if (pg[i].id == pid) {
+					pg[i].printPerson();
+					cout << "Enter firstname : ";
+					cin >> f1;
+					cout << "Enter last name : ";
+					cin >> f2;
+					cout << "Enter Branch : ";
+					cin >> f3;
+					pg[i].firstname = f1;
+					pg[i].lastname = f2;
+					pg[i].branch = f3;
+
+					cout << "-------Updated values-------" << endl;
+					pg[i].printPerson();
+				}
+				else
+				{
+					cout << "ID is not found to update!...."<<endl;
+				}
+				
+			}
+			
+
+			break;
+		case 5:cout << "Enter your Id to be deleted : " << endl;
+			cin >> pid;
+			for (int i = 0; i < k; i++)
+			{
+			
+				if (pg[i].id == pid)
+				{
+					c++;
+					for (int j = i; j < (k - 1); j++)
+					{
+						pg[j] = pg[j + 1];
+					}
+					cout << "ID deleted " << endl;
+					k--;
+
+					//break;
+				}
+			}
+			if (c == 0)
+			{
+				cout << "ID not found" << endl;
+			}
+
+			break;
+
+
+		default:
+			break;
+		
+
+	}
+} while (num < 6);
+
+	return 0;
+}
+
